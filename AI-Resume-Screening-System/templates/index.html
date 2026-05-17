@@ -21,71 +21,59 @@
 
             font-family: Arial, sans-serif;
 
-            background: linear-gradient(
-                135deg,
-                #0f172a,
-                #1e293b
-            );
+            background: #0f172a;
+
+            color: white;
 
             min-height: 100vh;
 
-            display: flex;
-
-            justify-content: center;
-
-            align-items: center;
-
             padding: 40px;
-
-            color: white;
         }
 
         .container {
 
-            width: 100%;
-            max-width: 1000px;
+            max-width: 1100px;
 
-            background: rgba(255,255,255,0.08);
-
-            backdrop-filter: blur(15px);
-
-            border: 1px solid rgba(255,255,255,0.1);
-
-            border-radius: 25px;
-
-            padding: 40px;
-
-            box-shadow: 0 8px 30px rgba(0,0,0,0.3);
+            margin: auto;
         }
 
-        .title {
+        .hero {
 
             text-align: center;
 
             margin-bottom: 40px;
         }
 
-        .title h1 {
+        .hero h1 {
 
-            font-size: 42px;
+            font-size: 48px;
 
-            margin-bottom: 10px;
+            margin-bottom: 15px;
+
+            color: #f8fafc;
         }
 
-        .title p {
-
-            color: #cbd5e1;
+        .hero p {
 
             font-size: 18px;
+
+            color: #94a3b8;
+        }
+
+        .main-card {
+
+            background: #111c34;
+
+            border: 1px solid #1e293b;
+
+            border-radius: 24px;
+
+            padding: 35px;
+
+            box-shadow: 0 10px 40px rgba(0,0,0,0.4);
         }
 
         .upload-section {
-
-            background: rgba(255,255,255,0.05);
-
-            padding: 30px;
-
-            border-radius: 20px;
 
             margin-bottom: 30px;
         }
@@ -94,15 +82,17 @@
 
             width: 100%;
 
-            padding: 15px;
+            padding: 16px;
 
-            border-radius: 12px;
+            border-radius: 14px;
 
             border: none;
 
-            background: #f1f5f9;
+            background: #e2e8f0;
 
             margin-bottom: 20px;
+
+            font-size: 15px;
         }
 
         textarea {
@@ -111,9 +101,9 @@
 
             height: 140px;
 
-            padding: 15px;
+            padding: 18px;
 
-            border-radius: 12px;
+            border-radius: 14px;
 
             border: none;
 
@@ -121,22 +111,32 @@
 
             font-size: 15px;
 
+            background: #f8fafc;
+
+            color: black;
+
             margin-bottom: 20px;
+        }
+
+        textarea:focus,
+        input:focus {
+
+            outline: 2px solid #38bdf8;
         }
 
         button {
 
             width: 100%;
 
-            padding: 15px;
+            padding: 16px;
 
             border: none;
 
-            border-radius: 12px;
+            border-radius: 14px;
 
             background: linear-gradient(
                 135deg,
-                #3b82f6,
+                #0ea5e9,
                 #2563eb
             );
 
@@ -155,7 +155,34 @@
 
             transform: translateY(-2px);
 
-            opacity: 0.9;
+            opacity: 0.95;
+        }
+
+        .uploaded-box {
+
+            background: #172554;
+
+            border: 1px solid #1d4ed8;
+
+            padding: 20px;
+
+            border-radius: 18px;
+
+            margin-bottom: 25px;
+        }
+
+        .uploaded-box h2 {
+
+            margin-bottom: 10px;
+
+            color: #bfdbfe;
+        }
+
+        .uploaded-box p {
+
+            color: #e2e8f0;
+
+            font-size: 17px;
         }
 
         .results-grid {
@@ -164,18 +191,20 @@
 
             grid-template-columns: 1fr 1fr;
 
-            gap: 20px;
+            gap: 25px;
 
-            margin-top: 30px;
+            margin-top: 20px;
         }
 
         .card {
 
-            background: rgba(255,255,255,0.05);
+            background: #172033;
+
+            border: 1px solid #23314d;
 
             padding: 25px;
 
-            border-radius: 20px;
+            border-radius: 22px;
 
             min-height: 220px;
         }
@@ -184,40 +213,44 @@
 
             margin-bottom: 20px;
 
-            font-size: 24px;
+            color: #f8fafc;
         }
 
         .skill-tag {
 
             display: inline-block;
 
-            padding: 10px 16px;
-
             background: #2563eb;
+
+            padding: 10px 18px;
 
             border-radius: 30px;
 
             margin: 8px;
 
             font-size: 14px;
+
+            color: white;
         }
 
         .missing-tag {
 
             display: inline-block;
 
-            padding: 10px 16px;
-
             background: #dc2626;
+
+            padding: 10px 18px;
 
             border-radius: 30px;
 
             margin: 8px;
 
             font-size: 14px;
+
+            color: white;
         }
 
-        .score-section {
+        .score-card {
 
             grid-column: span 2;
         }
@@ -226,11 +259,11 @@
 
             width: 100%;
 
-            height: 35px;
+            height: 36px;
 
-            background: rgba(255,255,255,0.1);
+            background: #1e293b;
 
-            border-radius: 20px;
+            border-radius: 30px;
 
             overflow: hidden;
 
@@ -254,6 +287,19 @@
             justify-content: center;
 
             font-weight: bold;
+
+            font-size: 15px;
+        }
+
+        .footer {
+
+            text-align: center;
+
+            margin-top: 35px;
+
+            color: #64748b;
+
+            font-size: 14px;
         }
 
         @media(max-width: 768px) {
@@ -263,14 +309,19 @@
                 grid-template-columns: 1fr;
             }
 
-            .score-section {
+            .score-card {
 
                 grid-column: span 1;
             }
 
-            .title h1 {
+            .hero h1 {
 
-                font-size: 32px;
+                font-size: 36px;
+            }
+
+            body {
+
+                padding: 20px;
             }
         }
 
@@ -282,83 +333,109 @@
 
     <div class="container">
 
-        <div class="title">
+        <div class="hero">
 
             <h1>AI Resume Screening System 🚀</h1>
 
             <p>
-                Analyze resumes intelligently using AI-powered skill matching
+                Smart resume analysis using AI-powered skill matching
             </p>
 
         </div>
 
-        <div class="upload-section">
+        <div class="main-card">
 
-            <form method="POST" enctype="multipart/form-data">
+            <div class="upload-section">
 
-                <input type="file" name="resume">
+                <form method="POST" enctype="multipart/form-data">
 
-                <textarea
-                    name="job_description"
-                    placeholder="Paste Job Description Here..."
-                ></textarea>
+                    <input type="file" name="resume">
 
-                <button type="submit">
-                    Analyze Resume
-                </button>
+                    <textarea
+                        name="job_description"
+                        placeholder="Paste Job Description Here..."
+                    ></textarea>
 
-            </form>
+                    <button type="submit">
+                        Analyze Resume
+                    </button>
 
-        </div>
-
-        <div class="results-grid">
-
-            <div class="card">
-
-                <h2>Detected Skills</h2>
-
-                {% for skill in skills %}
-
-                    <span class="skill-tag">
-                        {{ skill }}
-                    </span>
-
-                {% endfor %}
+                </form>
 
             </div>
 
-            <div class="card">
+            {% if uploaded_file %}
 
-                <h2>Missing Skills</h2>
+            <div class="uploaded-box">
 
-                {% for skill in missing %}
+                <h2>Uploaded Resume 📄</h2>
 
-                    <span class="missing-tag">
-                        {{ skill }}
-                    </span>
-
-                {% endfor %}
+                <p>{{ uploaded_file }}</p>
 
             </div>
 
-            <div class="card score-section">
+            {% endif %}
 
-                <h2>Match Score</h2>
+            <div class="results-grid">
 
-                <div class="progress-bar">
+                <div class="card">
 
-                    <div
-                        class="progress"
-                        style="width: {{ score }}%;"
-                    >
+                    <h2>Detected Skills</h2>
 
-                        {{ score }}%
+                    {% for skill in skills %}
+
+                        <span class="skill-tag">
+
+                            {{ skill }}
+
+                        </span>
+
+                    {% endfor %}
+
+                </div>
+
+                <div class="card">
+
+                    <h2>Missing Skills</h2>
+
+                    {% for skill in missing %}
+
+                        <span class="missing-tag">
+
+                            {{ skill }}
+
+                        </span>
+
+                    {% endfor %}
+
+                </div>
+
+                <div class="card score-card">
+
+                    <h2>Match Score</h2>
+
+                    <div class="progress-bar">
+
+                        <div
+                            class="progress"
+                            style="width: {{ score }}%;"
+                        >
+
+                            {{ score }}%
+
+                        </div>
 
                     </div>
 
                 </div>
 
             </div>
+
+        </div>
+
+        <div class="footer">
+
+            Built using Flask • Python • HTML • CSS
 
         </div>
 
