@@ -4,92 +4,148 @@ from PyPDF2 import PdfReader
 app = Flask(__name__)
 
 skills_list = [
+
+    # Programming Languages
     "python",
     "java",
-    "sql",
+    "c",
+    "c++",
+    "javascript",
+    "typescript",
+    "php",
+    "ruby",
+    "go",
+    "swift",
+
+    # Frontend
     "html",
     "css",
-    "javascript",
+    "react",
+    "angular",
+    "vue",
+    "bootstrap",
+    "tailwind css",
+
+    # Backend
     "flask",
+    "django",
+    "node.js",
+    "express.js",
+    "spring boot",
+
+    # Databases
+    "sql",
+    "mysql",
+    "postgresql",
+    "mongodb",
+    "sqlite",
+
+    # AI / Data Science
     "machine learning",
+    "deep learning",
+    "tensorflow",
+    "pytorch",
+    "pandas",
+    "numpy",
     "power bi",
+
+    # Cloud / DevOps
     "aws",
+    "azure",
+    "docker",
+    "kubernetes",
+    "jenkins",
     "git",
-    "github"
+    "github",
+
+    # Tools
+    "jira",
+    "postman",
+    "figma",
+    "linux",
+    "excel",
+
+    # Cybersecurity
+    "network security",
+    "ethical hacking",
+
+    # Mobile
+    "android",
+    "flutter",
+
+    # Other
+    "rest api",
+    "graphql",
+    "microservices"
+
 ]
 
 @app.route("/", methods=["GET", "POST"])
+
 def home():
 
     extracted_skills = []
     missing_skills = []
-    match_score = 0
+    score = 0
 
     if request.method == "POST":
 
-        resume = request.files["resume"]
+        file = request.files["resume"]
 
-        job_description = request.form["job_description"]
+        job_description = request.form["job_description"].lower()
 
-        if resume.filename != "":
+        text = ""
 
-            file_path = "uploads/" + resume.filename
+        if file:
 
-            resume.save(file_path)
-
-            pdf = PdfReader(file_path)
-
-            text = ""
+            pdf = PdfReader(file)
 
             for page in pdf.pages:
+                text += page.extract_text().lower()
 
-                extracted_text = page.extract_text()
+        # Extract skills from resume
+        for skill in skills_list:
 
-                if extracted_text:
+            if skill.lower() in text:
 
-                    text += extracted_text
+                extracted_skills.append(skill)
 
-            text = text.lower()
+        # Find required skills from job description
+        required_skills = []
 
-            for skill in skills_list:
+        for skill in skills_list:
 
-                if skill.lower() in text:
+            if skill.lower() in job_description:
 
-                    extracted_skills.append(skill)
+                required_skills.append(skill)
 
-            job_description = job_description.lower()
+        # Find missing skills
+        for skill in required_skills:
 
-            required_skills = []
+            if skill not in extracted_skills:
 
-            for skill in skills_list:
+                missing_skills.append(skill)
 
-                if skill.lower() in job_description:
+        # Better Match Score Logic
+        matched_skills = len(required_skills) - len(missing_skills)
 
-                    required_skills.append(skill)
+        if len(required_skills) > 0:
 
-            matched_skills = 0
-
-            for skill in required_skills:
-
-                if skill in extracted_skills:
-
-                    matched_skills += 1
-
-                else:
-
-                    missing_skills.append(skill)
-
-            if len(required_skills) > 0:
-
-                match_score = int(
-                    (matched_skills / len(required_skills)) * 100
-                )
+            score = int(
+                (matched_skills / len(required_skills)) * 100
+            )
 
     return render_template(
+
         "index.html",
+
         skills=extracted_skills,
-        score=match_score,
-        missing=missing_skills
+
+        missing=missing_skills,
+
+        score=score
+
     )
+
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000)
