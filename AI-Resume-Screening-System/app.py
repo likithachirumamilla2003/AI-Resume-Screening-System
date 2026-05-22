@@ -77,45 +77,59 @@ skills_list = [
     "rest api",
     "graphql",
     "microservices"
-
 ]
 
-@app.route("/", methods=["GET", "POST"])
 
+@app.route("/", methods=["GET", "POST"])
 def home():
 
     extracted_skills = []
     missing_skills = []
+    required_skills = []
     score = 0
+    text = ""
 
     if request.method == "POST":
 
-        file = request.files["resume"]
+        # Get uploaded resume
+        file = request.files.get("resume")
 
-        job_description = request.form["job_description"].lower()
+        # Get job description
+        job_description = request.form.get(
+            "job_description", ""
+        ).lower()
 
-        text = ""
+        # Check file uploaded
+        if file and file.filename != "":
 
-        if file:
+            try:
 
-            pdf = PdfReader(file)
+                # Read PDF directly
+                pdf = PdfReader(file)
 
-            for page in pdf.pages:
-                text += page.extract_text().lower()
+                # Extract text from all pages
+                for page in pdf.pages:
+
+                    extracted_text = page.extract_text()
+
+                    if extracted_text:
+                        text += extracted_text.lower()
+
+            except Exception as e:
+
+                print("Error reading PDF:", e)
 
         # Extract skills from resume
         for skill in skills_list:
 
-            if skill.lower() in text:
+            if skill in text:
 
                 extracted_skills.append(skill)
 
-        # Find required skills from job description
-        required_skills = []
-
+        # Extract required skills from job description
         for skill in skills_list:
 
-            if skill.lower() in job_description:
+            if skill in job_description:
 
                 required_skills.append(skill)
 
@@ -126,10 +140,12 @@ def home():
 
                 missing_skills.append(skill)
 
-        # Better Match Score Logic
-        matched_skills = len(required_skills) - len(missing_skills)
-
+        # Calculate match score
         if len(required_skills) > 0:
+
+            matched_skills = (
+                len(required_skills) - len(missing_skills)
+            )
 
             score = int(
                 (matched_skills / len(required_skills)) * 100
@@ -147,5 +163,6 @@ def home():
 
     )
 
+
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=5000)
+    app.run(debug=True)
